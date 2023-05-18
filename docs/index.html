@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Reverbera - Synthetic Voice Creation</title>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      font-family: Arial, sans-serif;
+    }
+    .logo {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    }
+    .columns {
+      display: flex;
+      justify-content: space-around;
+    }
+    .column {
+      flex: 1;
+      padding: 1em;
+      border: 1px solid #000;
+      margin: 1em;
+    }
+    .play-btn, .stop-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 1.5em;
+      outline: none;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+<script>
+  window.onload = function() {
+    var audios = document.getElementsByTagName('audio');
+    var playButtons = document.getElementsByClassName('play-btn');
+    var stopButtons = document.getElementsByClassName('stop-btn');
+
+    function checkAudioStatus() {
+      for (var i = 0; i < audios.length; i++) {
+        if (!audios[i].paused) {
+          playButtons[i].classList.add('hidden');
+          stopButtons[i].classList.remove('hidden');
+        } else {
+          playButtons[i].classList.remove('hidden');
+          stopButtons[i].classList.add('hidden');
+        }
+      }
+    }
+
+    function stopAllAudios() {
+      for (var i = 0; i < audios.length; i++) {
+        if (!audios[i].paused) {
+          audios[i].pause();
+          audios[i].currentTime = 0;
+        }
+      }
+    }
+
+    for (var i = 0; i < audios.length; i++) {
+      audios[i].addEventListener('play', checkAudioStatus);
+      audios[i].addEventListener('pause', checkAudioStatus);
+      audios[i].addEventListener('ended', checkAudioStatus);
+      playButtons[i].onclick = (function(i) {
+        return function() {
+          stopAllAudios();
+          audios[i].play();
+        }
+      })(i);
+      stopButtons[i].onclick = (function(i) {
+        return function() {
+          audios[i].pause();
+          audios[i].currentTime = 0;
+        }
+      })(i);
+    }
+    
+    checkAudioStatus();
+  }
+</script>
+
+</head>
+<body>
+  <img class="logo" src="logo.jpg" alt="Reverbera Logo">
+
+  <div class="columns">
+    <div class="column">
+      <h2>Vantagens</h2>
+      <p>Vozes altamente realistas</p>
+      <p>Escalável para grandes aplicações</p>
+      <p>API de fácil integração</p>
+      <!-- Add more advantages as needed -->
+      <audio id="audio1">
+        <source src="advantages.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <button class="play-btn" onclick="document.getElementById('audio1').play()">&#9654;</button>
+      <button class="stop-btn hidden" onclick="document.getElementById('audio1').pause(); document.getElementById('audio1').currentTime = 0;">&#9724;</button>
+    </div>
+
+    <div class="column">
+      <h2>Serviços</h2>
+      <p>Criação de vozes personalizadas</p>
+      <p>API com serviços de síntese de voz</p>
+      <p>Consultoria para aplicações com vozes sintéticas</p>
+      <!-- Add more services as needed -->
+      <audio id="audio2">
+        <source src="services.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+      <button class="play-btn" onclick="document.getElementById('audio2').play()">&#9654;</button>
+      <button class="stop-btn hidden" onclick="document.getElementById('audio2').pause(); document.getElementById('audio2').currentTime = 0;">&#9724;</button>
+    </div>
+
+    <div class="column">
+      <h2>Contato</h2>
+      <p>Email: contato@reverbera.net</p>
+      <p>Comercial: +55 11 94433-6564</p>
+      <p>Suporte: +55 11 99989-7579</p>
+      <!-- Add more contact details as needed -->
+      <audio id="audio3">
+        <source src="contact.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <button class="play-btn" onclick="document.getElementById('audio3').play()">&#9654;</button>
+      <button class="stop-btn hidden" onclick="document.getElementById('audio3').pause(); document.getElementById('audio3').currentTime = 0;">&#9724;</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -8,22 +8,29 @@
       background-color: white;
       color: black;
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .logo {
       display: block;
-      margin-left: auto;
-      margin-right: auto;
-      width: 50%;
+      margin: 2em auto;
+      width: 54%; /* reduced size by 20% */
     }
     .columns {
       display: flex;
       justify-content: space-around;
+      flex-wrap: wrap;
     }
     .column {
       flex: 1;
       padding: 1em;
       border: 1px solid #000;
-      margin: 1em;
+      margin: 1.2em; /* increased space by 20% */
+      box-sizing: border-box;
+      max-width: 350px;
     }
     .play-btn, .stop-btn {
       border: none;
@@ -35,7 +42,15 @@
     .hidden {
       display: none;
     }
-  </style>
+  
+    /* media query for devices with max-width 600px */
+    @media screen and (max-width: 600px) {
+      .logo {
+        width: 72%; /* reduced size by 20% */
+      }
+    }
+  </style>  
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- To ensure proper rendering and touch zooming -->
 <script>
   window.onload = function() {
     var audios = document.getElementsByTagName('audio');
